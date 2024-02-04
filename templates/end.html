@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Pixelify+Sans&display=swap');
+
+        * {
+            font-family: 'DM Serif Display', serif !important;
+        }
+        body {
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 6% 10% 0 10%;
+            box-sizing: border-box;
+            text-align: center;
+            background-color: #080209;
+            color: #f4f4f4;
+        }
+
+        button{
+            font-family: 'Pixelify Sans', sans-serif !important;
+            margin:  0 5px 0 5px !important;
+            padding: 5px 45px 5px 45px !important;
+            font-size: x-large !important;
+        }
+
+        .header {
+            padding:  2% 0 0 0;
+        }
+    </style>
+</head>
+<body>
+    <img src="static/img/logo.png" alt="" width="10%" class="mt-5">
+    <div class="header text-center">
+        <h1 class="text-center mt-3">Your input has been registered successfully.</h1>
+        <h3 class="text-center mt-3">Thank You for Participating! Please report back to the auditorium.</h3>
+        <h3 class="text-center mt-3">You may log out now.</h3>
+    </div>
+    <div class="text-center mt-5 px-5">
+        <button id="left" class="btn btn-success" onclick="goBackToCode()">Logout</button>
+        <!-- <button id="right" class="btn btn-success" onclick="redirectToScoreboard()">Right</button> -->
+    </div>
+
+    <script>
+        function goBackToCode() {
+            window.location.href = '/';
+        }
+        function redirectToLogin() {
+            window.location.href = '/logout';
+        }
+        function redirectToScoreboard() {
+            window.location.href = '/scoreboard';
+        }
+    </script>
+    </body>
+</html>
