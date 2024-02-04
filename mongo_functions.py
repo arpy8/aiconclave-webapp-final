@@ -2,9 +2,10 @@ import random
 import string
 from termcolor import colored
 from pymongo import MongoClient
+import os
 
-
-client = MongoClient("mongodb+srv://admin:admin123@cluster0.vttxhsu.mongodb.net/?retryWrites=true&w=majority")
+mongo_url = os.environ.get('MONGO_URL')
+client = MongoClient(mongo_url)
 
 db = client.get_database("aiconclave_team_final")
 records = db.team_records
