@@ -16,9 +16,10 @@ def index():
 
         if show_question_completion:
             if is_even(session['username']):
-                return render_template('index.html', show_question_completion=True, question=lions, q_no=1)
+                return render_template('index.html', show_question_completion=True, question=lions, q_no=1, problem_bottom=data_dict["binary"][0]["problem_bottom"], problem_hint=data_dict["binary"][0]["problem_hint"], problem_top=data_dict["binary"][0]["problem_top"])
             else:
-                return render_template('index.html', show_question_completion=True, question=parking, q_no=1)
+                return render_template('index.html', show_question_completion=True, question=parking, q_no=1, problem_bottom=data_dict["cesar"][0]["problem_bottom"], problem_hint=data_dict["cesar"][0]["problem_hint"], problem_top=data_dict["cesar"][0]["problem_top"])
+
         else:
             return render_template('login.html', show_question_completion=False)
 
@@ -44,10 +45,6 @@ def logout():
     session.pop('username', None)
     session.pop('show_question_completion', None)
     return redirect(url_for('login'))
-
-# @app.route('/scoreboard')
-# def scoreboard():
-#     return render_template('scoreboard.html')
 
 @app.route('/reduce_points', methods=['POST'])
 def reduce_points(player_id):

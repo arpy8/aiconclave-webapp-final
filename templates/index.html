@@ -40,13 +40,13 @@
             <br>
             <div class="col-md-12">
                 <h3>Question {{ q_no }}:</h3>
-                <p>You stumble upon a mysterious message written in binary code:</p>
+                <p>{{ problem_top }}</p>
                 <code>{{ question }}</code>
                 <br>
                 <br>
-                <p>Can you decipher this message to reveal what it says? Once decoded, identify the significance of the message in the context of computer science.</p>
+                <p>{{ problem_bottom }}</p>
                 <div class="alert alert-info">
-                    <strong>Hint:</strong> Binary code often represents characters using ASCII encoding. Each group of 8 bits (1 byte) corresponds to a character. You can use an ASCII table to decode the binary message.
+                    <strong>Hint:</strong> {{ problem_hint }}
                 </div>
             </div>
         </div>

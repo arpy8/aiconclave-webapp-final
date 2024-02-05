@@ -10,7 +10,6 @@ from mongo_functions import *
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '825'
 
-
 @app.route('/')
 def index():
     if 'username' in session:
@@ -19,7 +18,10 @@ def index():
         if show_question_completion:
             if session['username'] is not None:
                 if is_even(session['username']):
-                    return render_template('index.html', show_question_completion=True, question=lions if session['code']=="AIC792" else parking, q_no=2)
+                    if session['code']=="AIC792":
+                        return render_template('index.html', show_question_completion=True, question=lions, q_no=2, problem_bottom=data_dict["binary"][0]["problem_bottom"], problem_hint=data_dict["binary"][0]["problem_hint"], problem_top=data_dict["binary"][0]["problem_top"])
+                    elif session['code']=="AIC297":
+                        return render_template('index.html', show_question_completion=True, question=parking, q_no=2, problem_bottom=data_dict["cesar"][0]["problem_bottom"], problem_hint=data_dict["cesar"][0]["problem_hint"], problem_top=data_dict["cesar"][0]["problem_top"])
                 else:
                     return render_template('index.html', show_question_completion=True, question=parking if session['code']=="AIC297" else lions, q_no=2)
         else:
@@ -38,7 +40,6 @@ def login():
         if get_team(username)["login_count"]==-1:
             return jsonify({'success': False, 'message': 'Team already logged out.'})
             
-
         if code is not None:
             code = code.strip()
         else:

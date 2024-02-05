@@ -101,7 +101,3 @@ def return_login_count(team):
     
 def return_last_id():
     return records.find().sort([("id", -1)]).limit(1)[0]["id"]
-
-    
-if __name__ == "__main__":
-    print(return_last_id())
