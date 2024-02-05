@@ -32,7 +32,7 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form.get('username') 
+        username = request.form.get('username')
         code = request.form.get('code')
 
         print(colored(f'username: {username}, code: {code}', 'green'))
