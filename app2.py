@@ -69,42 +69,42 @@ def login():
     return redirect(url_for('login'))
 
 
-@app.route('/reduce_points', methods=['POST'])
-def reduce_points():
-    team = request.form['team']
-    records.update_one({"team": team}, {"$inc": {"point": -10}})
+# @app.route('/reduce_points', methods=['POST'])
+# def reduce_points():
+#     team = request.form['team']
+#     records.update_one({"team": team}, {"$inc": {"point": -10}})
 
-    return render_template('end.html', message=f'Reduced 10 points for Team {team}')
+#     return render_template('end.html', message=f'Reduced 10 points for Team {team}')
 
-@app.route('/the_road_not_taken', methods=['GET', 'POST'])
-def the_choice():
-    session['choice'] = True
-    return render_template('left_right.html')
+# @app.route('/the_road_not_taken', methods=['GET', 'POST'])
+# def the_choice():
+#     session['choice'] = True
+#     return render_template('left_right.html')
 
-@app.route('/end', methods=['GET', 'POST'])
-def end():
-    if not session['choice']:
-        team = request.form['team']
-        session['choice'] = False
-        records.update_one({"team": team}, {"$inc": {"point": 10}})
-        updated_points = records.find_one({"team": team})["point"]
-        records.update_one({"team": session['username']}, {"$set": {"login_count": -1}})
+# @app.route('/end', methods=['GET', 'POST'])
+# def end():
+#     if not session['choice']:
+#         team = request.form['team']
+#         session['choice'] = False
+#         records.update_one({"team": team}, {"$inc": {"point": 10}})
+#         updated_points = records.find_one({"team": team})["point"]
+#         records.update_one({"team": session['username']}, {"$set": {"login_count": -1}})
         
-        return render_template('end.html', message=f'Increased 10 points for Team {team}. Updated points: {updated_points}')
+#         return render_template('end.html', message=f'Increased 10 points for Team {team}. Updated points: {updated_points}')
     
-    return render_template('end.html')
+#     return render_template('end.html')
 
-@app.route('/scoreboard', methods=['GET', 'POST'])
-def scoreboard():
-    return render_template('scoreboard.html', leaderboard_data=records.find().sort("point", -1))
+# @app.route('/scoreboard', methods=['GET', 'POST'])
+# def scoreboard():
+#     return render_template('scoreboard.html', leaderboard_data=records.find().sort("point", -1))
 
-@app.route('/logout')
-def logout():
-    records.update_one({"team": session['username']}, {"$set": {"login_count": -1}})
-    session.pop('username', None)
-    session.pop('show_question_completion', None)
+# @app.route('/logout')
+# def logout():
+#     records.update_one({"team": session['username']}, {"$set": {"login_count": -1}})
+#     session.pop('username', None)
+#     session.pop('show_question_completion', None)
     
-    return redirect(url_for('login'))
+#     return redirect(url_for('login'))
 
 
 if __name__ == '__main__':
