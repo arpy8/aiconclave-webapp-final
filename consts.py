@@ -11,7 +11,7 @@ data_dict = {
     "caesar": [{"problem_top":"You find a message written in a strange language:",
                "problem_statement": "D ydvw duhd iru yhklfohv, odujh ru vpdoo, Zkhuh fduv dqg wuxfnv, wkhb vwdqg lq d vsudzo. Irxqg qhdu exloglqjv, d frqyhqlhqw vsrw, Zkdw dp L fdoohg?",
                "problem_bottom": "Can you decipher this message to reveal what it says? Once decoded, identify the significance of the message in the context of computer science.",
-                "problem_hint": "The message is encrypted using a Caesar cipher. You can decrypt the message by shifting each letter by a fixed number of positions down the alphabet. The number of positions is the key to the cipher."}
+                "problem_hint": "The message is encrypted using a Caesar cipher, where the shift is 3. You can decrypt the message by shifting each letter by a fixed number of positions down the alphabet. The number of positions is the key to the cipher."}
     ],
 }
 
