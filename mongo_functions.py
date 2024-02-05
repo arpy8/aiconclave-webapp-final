@@ -24,7 +24,7 @@ def add_team(team):
         "password": password,
         "lion": False,
         "parking": False,
-        "point": 50,
+        "point": 100,
         "id":index_number+1,
         "login_count": 0,
     }
@@ -101,3 +101,6 @@ def return_login_count(team):
     
 def return_last_id():
     return records.find().sort([("id", -1)]).limit(1)[0]["id"]
+
+if __name__=="__main__":
+    add_team("VON")
