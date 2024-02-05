@@ -18,7 +18,7 @@ def index():
             if is_even(session['username']):
                 return render_template('index.html', show_question_completion=True, question=lions, q_no=1, problem_bottom=data_dict["binary"][0]["problem_bottom"], problem_hint=data_dict["binary"][0]["problem_hint"], problem_top=data_dict["binary"][0]["problem_top"])
             else:
-                return render_template('index.html', show_question_completion=True, question=parking, q_no=1, problem_bottom=data_dict["cesar"][0]["problem_bottom"], problem_hint=data_dict["cesar"][0]["problem_hint"], problem_top=data_dict["cesar"][0]["problem_top"])
+                return render_template('index.html', show_question_completion=True, question=parking, q_no=1, problem_bottom=data_dict["caesar"][0]["problem_bottom"], problem_hint=data_dict["caesar"][0]["problem_hint"], problem_top=data_dict["caesar"][0]["problem_top"])
 
         else:
             return render_template('login.html', show_question_completion=False)
