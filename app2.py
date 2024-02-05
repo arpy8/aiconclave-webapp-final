@@ -12,22 +12,24 @@ app.config['SECRET_KEY'] = '825'
 
 @app.route('/')
 def index():
-    if 'username' in session:
-        show_question_completion = session.pop('show_question_completion', False)
-        
-        if show_question_completion:
-            if session['username'] is not None:
-                if is_even(session['username']):
-                    if str(session['code']).strip().lower()=="aic792":
-                        return render_template('index.html', show_question_completion=True, question=lions, q_no=2, problem_bottom=data_dict["binary"][0]["problem_bottom"], problem_hint=data_dict["binary"][0]["problem_hint"], problem_top=data_dict["binary"][0]["problem_top"])
-                    elif str(session['code']).strip().lower()=="aic297":
-                        return render_template('index.html', show_question_completion=True, question=parking, q_no=2, problem_bottom=data_dict["cesar"][0]["problem_bottom"], problem_hint=data_dict["cesar"][0]["problem_hint"], problem_top=data_dict["cesar"][0]["problem_top"])
-                    else:
-                        return jsonify({'success': False, 'message': 'Invalid code.'})
-        else:
-            return render_template('login2.html', show_question_completion=False)
+    if 'username' not in session:
+        return redirect(url_for('login'))
 
-    return redirect(url_for('login'))
+    show_question_completion = session.pop('show_question_completion', False)
+        
+    if show_question_completion:
+        if session['username'] is not None:
+            print(colored(session['username'], 'green'))
+            if is_even(session['username']):
+                return render_template('index.html', show_question_completion=True, question=parking, q_no=2, problem_bottom=data_dict["caesar"][0]["problem_bottom"], problem_hint=data_dict["caesar"][0]["problem_hint"], problem_top=data_dict["caesar"][0]["problem_top"])
+            elif not is_even(session['username']):
+                return render_template('index.html', show_question_completion=True, question=lions, q_no=2, problem_bottom=data_dict["binary"][0]["problem_bottom"], problem_hint=data_dict["binary"][0]["problem_hint"], problem_top=data_dict["binary"][0]["problem_top"])
+            else:
+                return jsonify({'success': False, 'message': 'Invalid code.'})
+    else:
+        return render_template('login2.html', show_question_completion=False)
+
+    return redirect(url_for('index'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -35,9 +37,7 @@ def login():
         username = request.form.get('username')
         code = request.form.get('code')
 
-        print(colored(f'username: {username}, code: {code}', 'green'))
-
-        if get_team(username)["login_count"]==-1:
+        if get_team(username)["login_count"] == -1:
             return jsonify({'success': False, 'message': 'Team already logged out.'})
             
         if code is not None:
@@ -45,15 +45,15 @@ def login():
         else:
             return jsonify({'success': False, 'message': 'Code is required in the form data.'})
         
-        if code.lower().strip() not in ['aic297', 'aic792']:
+        if code.upper().strip() not in ['AIC297', 'AIC792']:
             return jsonify({'success': False, 'message': f'Invalid code: {code}'})
 
-        elif code.lower().strip() in ['aic297', 'aic792']:
+        elif code.upper().strip() in ['AIC297', 'AIC792']:
             session['username'] = username
             session['show_question_completion'] = True
             session['code'] = code
             
-            modify_place_visited(username, 'lion' if code.lower().strip()=="aic297" else 'parking', True)
+            modify_place_visited(username, 'lion' if code.upper().strip()=="AIC297" else 'parking', True)
             
             if len(place_visited(username)) == 2:
                 return render_template('proceed_to_3.html')
@@ -66,7 +66,7 @@ def login():
         else:
             return jsonify({'success': False, 'message': 'Invalid credentials. Please try again.'})
 
-    return render_template('login2.html')
+    return redirect(url_for('login'))
 
 
 @app.route('/reduce_points', methods=['POST'])
@@ -88,7 +88,6 @@ def end():
         session['choice'] = False
         records.update_one({"team": team}, {"$inc": {"point": 10}})
         updated_points = records.find_one({"team": team})["point"]
-        
         records.update_one({"team": session['username']}, {"$set": {"login_count": -1}})
         
         return render_template('end.html', message=f'Increased 10 points for Team {team}. Updated points: {updated_points}')
@@ -101,9 +100,9 @@ def scoreboard():
 
 @app.route('/logout')
 def logout():
+    records.update_one({"team": session['username']}, {"$set": {"login_count": -1}})
     session.pop('username', None)
     session.pop('show_question_completion', None)
-    records.update_one({"team": session['username']}, {"$set": {"login_count": -1}})
     
     return redirect(url_for('login'))
 

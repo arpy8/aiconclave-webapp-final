@@ -4,7 +4,7 @@ from termcolor import colored
 from pymongo import MongoClient
 import os
 
-mongo_url = os.environ.get('MONGO_URL')
+mongo_url = "mongodb+srv://admin:admin123@cluster0.vttxhsu.mongodb.net/?retryWrites=true&w=majority"
 client = MongoClient(mongo_url)
 
 db = client.get_database("aiconclave_team_final")
@@ -58,9 +58,7 @@ def place_visited(team):
         my_list.append("lion")
     if team["parking"] == True:
         my_list.append("parking")
-    else:
-        return "None"
-    
+
     return my_list
 
 def place_not_visited(team):
@@ -85,7 +83,10 @@ def authenticate_team(team, password):
 def is_even(team):
     team_data = get_team(team)
     if team_data and 'id' in team_data:
-        return team_data['id'] % 2 == 0
+        if team_data['id'] % 2 == 0:
+            return True
+        else:
+            return False
     else:
         return False
     

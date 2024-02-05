@@ -5,5 +5,5 @@
 2. https://aic-treasure-hunt-code-protocol-z.onrender.com/login
    solve riddle -> location with code -> qr code for final ->
 3. https://aic-treasure-hunt-code-protocol-d.onrender.com/
-   solve riddle -> location with code -> qr code for final ->
-4. https://wggvcphtajsfd5cveq2hpc.streamlit.app/   
+   solve riddle -> location with code ->
+4. https://wggvcphtajsfd5cveq2hpc.streamlit.app/
