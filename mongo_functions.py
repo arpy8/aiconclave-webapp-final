@@ -2,7 +2,6 @@ import random
 import string
 from termcolor import colored
 from pymongo import MongoClient
-import os
 
 mongo_url = "mongodb+srv://admin:admin123@cluster0.vttxhsu.mongodb.net/?retryWrites=true&w=majority"
 client = MongoClient(mongo_url)
