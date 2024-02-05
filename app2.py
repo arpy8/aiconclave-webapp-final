@@ -56,7 +56,7 @@ def login():
             modify_place_visited(username, 'lion' if code=="AIC297" else 'parking', True)
             
             if len(place_visited(username)) == 2:
-                return render_template('left_right.html')
+                return render_template('proceed_to_3.html')
             
             elif len(place_visited(username)) == 1:
                 return redirect(url_for('index'))
