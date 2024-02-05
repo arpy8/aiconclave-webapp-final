@@ -18,12 +18,12 @@ def index():
         if show_question_completion:
             if session['username'] is not None:
                 if is_even(session['username']):
-                    if session['code']=="AIC792":
+                    if str(session['code']).strip().lower()=="aic792":
                         return render_template('index.html', show_question_completion=True, question=lions, q_no=2, problem_bottom=data_dict["binary"][0]["problem_bottom"], problem_hint=data_dict["binary"][0]["problem_hint"], problem_top=data_dict["binary"][0]["problem_top"])
-                    elif session['code']=="AIC297":
+                    elif str(session['code']).strip().lower()=="aic297":
                         return render_template('index.html', show_question_completion=True, question=parking, q_no=2, problem_bottom=data_dict["cesar"][0]["problem_bottom"], problem_hint=data_dict["cesar"][0]["problem_hint"], problem_top=data_dict["cesar"][0]["problem_top"])
-                else:
-                    return render_template('index.html', show_question_completion=True, question=parking if session['code']=="AIC297" else lions, q_no=2)
+                    else:
+                        return jsonify({'success': False, 'message': 'Invalid code.'})
         else:
             return render_template('login2.html', show_question_completion=False)
 
@@ -45,15 +45,15 @@ def login():
         else:
             return jsonify({'success': False, 'message': 'Code is required in the form data.'})
         
-        if code not in ['AIC297', 'AIC792']:
+        if code.lower().strip() not in ['aic297', 'aic792']:
             return jsonify({'success': False, 'message': f'Invalid code: {code}'})
 
-        elif code in ['AIC297', 'AIC792']:
+        elif code.lower().strip() in ['aic297', 'aic792']:
             session['username'] = username
             session['show_question_completion'] = True
             session['code'] = code
             
-            modify_place_visited(username, 'lion' if code=="AIC297" else 'parking', True)
+            modify_place_visited(username, 'lion' if code.lower().strip()=="aic297" else 'parking', True)
             
             if len(place_visited(username)) == 2:
                 return render_template('proceed_to_3.html')
