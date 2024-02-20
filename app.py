@@ -36,7 +36,7 @@ def login():
             session['show_question_completion'] = True
             return redirect(url_for('index'))
         else:
-            return jsonify({'success': False, 'message': 'Invalid credentials. Please try again.'})
+            return render_template("error.html", message='Invalid credentials. Please try again.')
 
     return render_template('login.html')
 
