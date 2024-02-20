@@ -74,9 +74,12 @@ def place_not_visited(team):
 
 def authenticate_team(team, password):
     team = get_team(team)
-    if team["password"] == password:
-        return True
-    else:
+    try:
+        if team["password"] == password:
+            return True
+        else:
+            return False
+    except TypeError:
         return False
     
 def is_even(team):
